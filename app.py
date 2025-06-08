@@ -53,7 +53,7 @@ def get_supply_status():
     print('called with id ',subdivision_id)
     if not subdivision_id:
         return jsonify({"error": "Missing district id"}), 400
-    url = f"https://distribution.pspcl.in/returns/module.php?to=NCC.apiGetOfflineFeedersinSD&token={tokenid}&sdid={subdivision_id}"
+    url = f"https://distribution.pspcl.in/returns/module.php?to=NCC.apiGetOfflineFeedersinSD&token=602278b90511f63af917468f0365448c&sdid={subdivision_id}"
     resp = requests.get(url)
     try:
         data = str(resp.text).split('(')[1].split(')')[0]
