@@ -115,5 +115,17 @@ def get_supply_status():
         return jsonify({"error": str(e)}), 502
     return jsonify(data)
 
+@app.route('/raw', methods=['GET'])
+def raw_check_supply():
+    subdivision_id = request.args.get('id')
+    if not subdivision_id:
+        return "Missing subdivision id", 400
+    url = f"https://distribution.pspcl.in/returns/module.php?to=NCC.apiGetOfflineFeedersinSD&token={PSPCL_TOKEN}&sdid={subdivision_id}"
+    try:
+        resp = requests.get(url, timeout=10)
+        return resp.text, resp.status_code
+    except requests.exceptions.RequestException as e:
+        return str(e), 502
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
